@@ -32,7 +32,6 @@ package com.vmware.vim25.mo.samples.ext;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -42,6 +41,7 @@ import com.vmware.vim25.ExtensionClientInfo;
 import com.vmware.vim25.ExtensionServerInfo;
 import com.vmware.vim25.mo.ExtensionManager;
 import com.vmware.vim25.mo.ServiceInstance;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -75,14 +75,10 @@ public class ExtMgrUtil
     }
 
     // Assign the values to the corresponding variables
-    URL url = new URL(props.getProperty("url"));
-    String userName = props.getProperty("userName");
-    String password = props.getProperty("password");
     String operation = props.getProperty("operation");
     String keyStr = props.getProperty("keyStr");
 
-    ServiceInstance si = new ServiceInstance( 
-        url, userName, password, true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     ExtensionManager extMgr = si.getExtensionManager();
 
     if("register".equalsIgnoreCase(operation))
@@ -201,7 +197,7 @@ public class ExtMgrUtil
     String version = props.getProperty("version");
 
     Description description = new Description();
-    description.setLabel(keyStr);
+    description.setLabel(descStr);
     description.setSummary(descStr);
 
     ExtensionServerInfo esi = new ExtensionServerInfo();
@@ -238,12 +234,14 @@ public class ExtMgrUtil
     for(int i=0; exts!=null && i<exts.length; i++)
     {
       System.out.println("\n --- Plugin # " + (i+1) + " --- ");
+      System.out.println("Label: " + exts[i].getDescription().getLabel());
       System.out.println("Key: " + exts[i].getKey());
       System.out.println("Version: " + exts[i].getVersion());
       System.out.println("Registration Time: " + 
           exts[i].getLastHeartbeatTime().getTime());
-      System.out.println("Configuration URL: " + 
-          exts[i].getServer()[0].getUrl());
+      if (exts[i].getServer() != null) {
+         System.out.println("Configuration URL: " + exts[i].getServer()[0].getUrl());
+      }
     }
   }
 }

@@ -55,21 +55,7 @@ public class QueryEvent
 
   public static void main(String[] args) throws Exception 
   {
-
-    if (args.length != 3) 
-    {
-      usage();
-      return;
-    }
-
-    String urlStr = args[0];
-    String username = args[1];
-    String password = args[2];
-
-    System.out.println("Connecting to " + urlStr + " as " + username);
-
-    ServiceInstance si = new ServiceInstance(new URL(urlStr), username,
-        password, true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
 
     System.out.println("info---" + si.getAboutInfo().getFullName());
 

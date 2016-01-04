@@ -42,6 +42,7 @@ import com.vmware.vim25.LicenseUsageInfo;
 import com.vmware.vim25.LocalLicenseSource;
 import com.vmware.vim25.mo.LicenseManager;
 import com.vmware.vim25.mo.ServiceInstance;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -51,22 +52,14 @@ public class PrintLicense
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length != 3)
-    {
-      System.out.println("Usage: java PrintLicense <url> " 
-        + "<username> <password>");
-      return;
-    }
-    
-    ServiceInstance si = new ServiceInstance(
-        new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     
     LicenseManager lm = si.getLicenseManager();
     
     System.out.println("License edition:" 
       + lm.getLicensedEdition());
     
-    System.out.println("Licnese source available:"
+    System.out.println("License source available:"
       + lm.getSourceAvailable());
     
     printLicenseSource(lm.getSource());

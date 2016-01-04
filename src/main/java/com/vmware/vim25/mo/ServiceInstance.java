@@ -126,6 +126,13 @@ public class ServiceInstance extends ManagedObject
     super(sc, SERVICE_INSTANCE_MOR);
   }
 
+  public void logout() {
+    if (getServerConnection() != null) {
+       getServerConnection().logout();
+       setServerConnection(null);
+    }
+  }
+
   public Calendar getServerClock()
   {
     return (Calendar) getCurrentProperty("serverClock");

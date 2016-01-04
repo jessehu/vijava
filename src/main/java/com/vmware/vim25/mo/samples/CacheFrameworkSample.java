@@ -16,7 +16,7 @@ public class CacheFrameworkSample
 {
   public static void main(String[] args) throws Exception
   {
-    ServiceInstance si = new ServiceInstance(new URL("http://10.20.143.205/sdk"), "root", "password", true); 
+    ServiceInstance si = SampleUtil.createServiceInstance(); 
     Folder rootFolder = si.getRootFolder();
     ManagedEntity[] vms = new InventoryNavigator(rootFolder).searchManagedEntities("VirtualMachine");
     ManagedEntity[] hosts = new InventoryNavigator(rootFolder).searchManagedEntities("HostSystem");

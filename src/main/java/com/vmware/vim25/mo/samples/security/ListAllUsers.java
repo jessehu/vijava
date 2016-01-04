@@ -34,6 +34,7 @@ import java.net.URL;
 import com.vmware.vim25.UserSearchResult;
 import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.UserDirectory;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -44,15 +45,7 @@ public class ListAllUsers
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length != 3)
-    {
-      System.out.println("Usage: java ListAllUsers <url> " 
-        + "<username> <password>");
-      return;
-    }
-    
-    ServiceInstance si = new ServiceInstance(
-        new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
 
     UserDirectory ud = si.getUserDirectory();
     

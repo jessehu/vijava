@@ -43,7 +43,7 @@ public class PrintInventory
   public static void main(String[] args) throws Exception
   {
 
-    ServiceInstance si = new ServiceInstance(new URL("https://server/sdk"), "root", "password", true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     Folder rootFolder = si.getRootFolder();
     
     System.out.println("============ Data Centers ============");

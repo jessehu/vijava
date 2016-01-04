@@ -29,8 +29,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 package com.vmware.vim25.mo.samples.vm;
 
-import java.net.URL;
-
 import com.vmware.vim25.VirtualMachineCloneSpec;
 import com.vmware.vim25.VirtualMachineRelocateSpec;
 import com.vmware.vim25.mo.Folder;
@@ -38,6 +36,7 @@ import com.vmware.vim25.mo.InventoryNavigator;
 import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.VirtualMachine;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -48,18 +47,16 @@ public class CloneVM
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length!=5)
+    if(args.length!=2)
     {
-      System.out.println("Usage: java CloneVM <url> " +
-      "<username> <password> <vmname> <clonename>");
+      System.out.println("Usage: java CloneVM <vmname> <clonename>");
       System.exit(0);
     }
 
-    String vmname = args[3];
-    String cloneName = args[4];
+    String vmname = args[0];
+    String cloneName = args[1];
 
-    ServiceInstance si = new ServiceInstance(
-        new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
 
     Folder rootFolder = si.getRootFolder();
     VirtualMachine vm = (VirtualMachine) new InventoryNavigator(
@@ -84,7 +81,7 @@ public class CloneVM
     System.out.println("Launching the VM clone task. " +
         "Please wait ...");
 
-    String status = task.waitForMe();
+    String status = task.waitForTask();
     if(status==Task.SUCCESS)
     {
       System.out.println("VM got cloned successfully.");

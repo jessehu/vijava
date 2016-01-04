@@ -29,7 +29,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 package com.vmware.vim25.mo.samples;
 
-import java.net.URL;
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 
@@ -38,7 +37,7 @@ public class HelloVM
   public static void main(String[] args) throws Exception
   {
     long start = System.currentTimeMillis();
-    ServiceInstance si = new ServiceInstance(new URL("https://8.8.8.8/sdk"), "root", "password", true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     long end = System.currentTimeMillis();
     System.out.println("time taken:" + (end-start));
     Folder rootFolder = si.getRootFolder();

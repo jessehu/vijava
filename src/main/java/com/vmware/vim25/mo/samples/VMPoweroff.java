@@ -29,8 +29,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 package com.vmware.vim25.mo.samples;
 
-import java.net.URL;
-
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.*;
 
@@ -44,7 +42,7 @@ public class VMPoweroff
 {
   public static void main(String[] args) throws Exception
   {
-    ServiceInstance si = new ServiceInstance(new URL("https://10.17.218.174/sdk"), "root", "password", true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     Folder rootFolder = si.getRootFolder();
     
     ManagedEntity[] mes = rootFolder.getChildEntity();
@@ -62,16 +60,30 @@ public class VMPoweroff
           if(vms[j] instanceof VirtualMachine)
           {
             VirtualMachine vm = (VirtualMachine) vms[j];
-            System.out.println((vm.getName()));
             VirtualMachineSummary summary = (VirtualMachineSummary) (vm.getSummary());
-            System.out.println(summary.toString());
+            System.out.println(summary.getGuest().guestFullName);
             VirtualMachineRuntimeInfo vmri = (VirtualMachineRuntimeInfo) vm.getRuntime();
-            if(vmri.getPowerState() == VirtualMachinePowerState.poweredOn
-              && "Ubuntu704Srv".equals(vm.getName()))
-            {
-              Task task = vm.powerOffVM_Task();
-              task.waitForMe();
-              System.out.println("vm:" + vm.getName() + " powered off.");
+            System.out.println((vm.getName()) + " state is " + vmri.getPowerState());
+            Task task;
+            if("test-vm".equals(vm.getName())) {
+               switch(vmri.getPowerState()) {
+               case poweredOff:
+                  System.out.println("Powering on vm " + vm.getName());
+                  task = vm.powerOnVM_Task(null);
+                  task.waitForTask();
+                  System.out.println("vm " + vm.getName() + " powered on.");
+                  break;
+               case poweredOn:
+                  System.out.println("Powering off vm " + vm.getName());
+                  task = vm.powerOffVM_Task();
+                  task.waitForTask();
+                  System.out.println("vm " + vm.getName() + " powered off.");
+                  break;
+               case suspended:
+                  break;
+               default:
+                  break;
+               }
             }
           }
         }

@@ -28,7 +28,6 @@ POSSIBILITY OF SUCH DAMAGE.
 ================================================================================*/
 package com.vmware.vim25.mo.samples.lic;
 
-import java.net.URL;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +37,7 @@ import com.vmware.vim25.LicenseManagerEvaluationInfo;
 import com.vmware.vim25.LicenseManagerLicenseInfo;
 import com.vmware.vim25.mo.LicenseManager;
 import com.vmware.vim25.mo.ServiceInstance;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * This sample shows how to get the expiration dates of licenses.
@@ -48,8 +48,7 @@ public class PrintLicExpirationDateV4
 {
   public static void main(String[] args) throws Exception
   {
-    ServiceInstance si = new ServiceInstance(new URL("https://8.8.8.8/sdk"), 
-        "administrator", "vmware", true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
     LicenseManager lm = si.getLicenseManager();
     LicenseManagerLicenseInfo[] lics = lm.getLicenses();
 

@@ -51,6 +51,7 @@ import com.vmware.vim25.mo.ManagedEntity;
 import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.TaskHistoryCollector;
 import com.vmware.vim25.mo.TaskManager;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -61,15 +62,7 @@ public class TaskHistoryMonitor
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length != 3)
-    {
-      System.out.println("Usage: java TaskHistoryMonitor " 
-        + "<url> <username> <password>");
-      return;
-    }
-     
-    ServiceInstance si = new ServiceInstance(
-      new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
      
     TaskManager taskMgr = si.getTaskManager();
 

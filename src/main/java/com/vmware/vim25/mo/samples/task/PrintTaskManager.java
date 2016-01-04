@@ -38,6 +38,7 @@ import com.vmware.vim25.TypeDescription;
 import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.Task;
 import com.vmware.vim25.mo.TaskManager;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -48,15 +49,7 @@ public class PrintTaskManager
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length != 3)
-    {
-      System.out.println("Usage: java PrintTaskManager " 
-        + "<url> <username> <password>");
-      return;
-    }
-
-    ServiceInstance si = new ServiceInstance(
-      new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
      
     TaskManager taskMgr = si.getTaskManager();
 

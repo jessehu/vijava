@@ -36,6 +36,7 @@ import com.vmware.vim25.AuthorizationRole;
 import com.vmware.vim25.ElementDescription;
 import com.vmware.vim25.mo.AuthorizationManager;
 import com.vmware.vim25.mo.ServiceInstance;
+import com.vmware.vim25.mo.samples.SampleUtil;
 
 /**
  * http://vijava.sf.net
@@ -46,15 +47,7 @@ public class ListAuthorization
 {
   public static void main(String[] args) throws Exception
   {
-    if(args.length != 3)
-    {
-      System.out.println("Usage: java ListAuthorization <url> " 
-        + "<username> <password>");
-      return;
-    }
-    
-    ServiceInstance si = new ServiceInstance(
-        new URL(args[0]), args[1], args[2], true);
+    ServiceInstance si = SampleUtil.createServiceInstance();
 
     AuthorizationManager am = si.getAuthorizationManager();
     AuthorizationDescription ad = am.getDescription();
